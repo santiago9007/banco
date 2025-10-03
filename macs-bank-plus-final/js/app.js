@@ -137,24 +137,7 @@ const App = {
     if (formRegister) formRegister.addEventListener('submit', e => { e.preventDefault(); this.registrarUsuario(); });
 
     // Dashboard: salir y cargar sesión si existe
-    const salirBtn = document.getElementById('btnSalir');
-    if (salirBtn) {
-      salirBtn.addEventListener('click', () => {
-        usuarioActivo = null;
-        sessionStorage.removeItem('usuarioActivo');
-        window.location.href = 'index.html';
-      });
-
-      // Si estamos en dashboard, intentar recuperar sesión
-      const stored = sessionStorage.getItem('usuarioActivo');
-      if (stored) {
-        usuarioActivo = reconstruirUsuario(JSON.parse(stored));
-        this.actualizarUI();
-      } else {
-        // Si no hay sesión válida, redirigir al login
-        window.location.href = 'index.html';
-      }
-    }
+  
   },
 
   /* Registro de usuario desde formulario (sin prompts)
@@ -303,12 +286,7 @@ const App = {
     }
 
     try {
-      if (tipo === 'deposito') {
-        cuenta.realizarDeposito(monto);
-        // sincronizar con storage
-        syncUsuarioActivoToStorage();
-        document.getElementById('resultado').innerText = '✅ Depósito exitoso';
-      }  else if (tipo === 'transferencia') {
+      if (tipo === 'transferencia') {
         const destino = document.getElementById('destino').value.trim();
         if (!destino) {
           document.getElementById('resultado').innerText = 'Ingrese la cuenta destino.';
