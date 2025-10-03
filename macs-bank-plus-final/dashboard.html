@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macs Bank+ - Cajero</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="dashboard-body">
+  <header>
+    <h1>Macs Bank+</h1>
+    <button id="btnSalir" class="btn-secondary">Salir</button>
+  </header>
+
+  <main class="dashboard">
+    <aside class="sidebar">
+      <div class="user-card">
+        <div id="userName">Usuario</div>
+        <div id="accountNumber" class="muted">Cuenta: -</div>
+
+        <!-- Selector de cuentas para usuarios con 1 o varias cuentas -->
+        <div style="margin-top:10px;">
+          <label for="cuentaActivaSelect" class="muted">Seleccionar cuenta</label>
+          <select id="cuentaActivaSelect"></select>
+        </div>
+      </div>
+
+      <nav class="acciones">
+        <button onclick="UI.mostrarAccion('deposito')" class="btn">💰 Depositar</button>
+        <button onclick="UI.mostrarAccion('retiro')" class="btn">🏧 Retirar</button>
+        <button onclick="App.mostrarSaldo()" class="btn">📊 Consultar Saldo</button>
+        <button onclick="App.mostrarMovimientos()" class="btn">📜 Movimientos</button>
+        <button onclick="UI.mostrarAccion('transferencia')" class="btn">🔄 Transferir</button>
+      </nav>
+    </aside>
+
+    <section class="content">
+      <div id="panelAccion" class="panel"></div>
+      <div id="resultado" class="resultado"></div>
+    </section>
+  </main>
+
+  <script src="js/classes.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
