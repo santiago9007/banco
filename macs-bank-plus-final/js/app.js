@@ -230,7 +230,10 @@ const App = {
       // Guardar sesión (serializada) y redirigir al dashboard
       sessionStorage.setItem('usuarioActivo', JSON.stringify(serializeCliente(usuarioActivo)));
       window.location.href = 'dashboard.html';
-    } else {
+    }else if(!found){
+      alert("Usuario no encontrado por favor registrese");
+      window.location.href = 'index.html';
+    }else {
       intentos++;
       UI.mostrarMensaje('mensajeLogin', `❌ Credenciales inválidas. Intentos: ${intentos}/${MAX_INTENTOS}`, 'error');
       if (intentos >= MAX_INTENTOS) UI.mostrarMensaje('mensajeLogin', '🚫 Has excedido los intentos permitidos.', 'error');

@@ -128,15 +128,35 @@ class CuentaCorriente extends Cuenta {
 
   // Retiro que puede usar sobregiro hasta el límite
   realizarRetiro(monto) {
-    if (typeof monto !== 'number' || monto <= 0) {alert('El monto debe ser mayor a 0'); return;};
-    if (monto <= this.saldo + this.limiteSobregiro) {
-      this.saldo -= monto;
-      this.movimientos.unshift({ tipo: 'Retiro (corriente)', monto: monto, fecha: new Date().toISOString() });
-    } else {
-      alert('Límite de sobregiro excedido en Cuenta Corriente');
-      return;
-    }
+  if (typeof monto !== 'number' || monto <= 0) {
+    alert('El monto debe ser mayor a 0');
+    return;
   }
+
+  if (monto <= this.saldo) {
+    // Retiro normal sin sobregiro
+    this.saldo -= monto;
+    this.movimientos.unshift({
+      tipo: 'Retiro (corriente)',
+      monto: monto,
+      fecha: new Date().toISOString()
+    });
+  } else if (monto < this.saldo + this.limiteSobregiro) {
+    // Se usa sobregiro
+    const valorSobregiro = monto - this.saldo;
+    alert('El valor del sobregiro es de: ' + valorSobregiro);
+    this.saldo -= monto;
+    this.movimientos.unshift({
+      tipo: 'Retiro (corriente)',
+      monto: monto,
+      fecha: new Date().toISOString()
+    });
+  } else {
+    // Se excede el sobregiro
+    alert('Límite de sobregiro excedido en Cuenta Corriente');
+  }
+}
+
 }
 
 // Exportar al objeto global para facilitar la creación de instancias desde app.js
