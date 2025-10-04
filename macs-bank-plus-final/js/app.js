@@ -137,6 +137,19 @@ const App = {
     if (formRegister) formRegister.addEventListener('submit', e => { e.preventDefault(); this.registrarUsuario(); });
 
     // Dashboard: salir y cargar sesión si existe
+    const  salirBtn = document.getElementById('btnSalir')
+    salirBtn.addEventListener('click', () => {
+      usuarioActivo = null;
+      sessionStorage.removeItem('usuarioActivo');
+      window.location.href = 'index.html';
+    })
+    const sttored = sessionStorage.getItem('usuarioActivo');
+    if (sttored) {
+      usuarioActivo = reconstruirUsuario(JSON.parse(sttored));
+      this.actualizarUI();
+    }else{
+      window.location.href = 'index.html';
+    }
   
   },
 
