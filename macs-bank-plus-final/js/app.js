@@ -324,7 +324,13 @@ const App = {
             if (u.cuentas[j].numeroCuenta === destino) {
               // Reconstruir usuario destino como instancia, aplicar depósito y volver a serializar
               const usuarioDestino = reconstruirUsuario(u);
-              usuarioDestino.cuentas[j].realizarDeposito(monto);
+              usuarioDestino.cuentas[j].saldo += monto;
+              usuarioDestino.cuentas[j].movimientos.unshift({
+              tipo: 'Transferencia recibida',
+              monto: monto,
+              fecha: new Date().toISOString()
+              });
+
 
               // Actualizar usuarios[i] con la versión serializada
               usuarios[i] = serializeCliente(usuarioDestino);
