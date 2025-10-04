@@ -286,7 +286,12 @@ const App = {
     }
 
     try {
-      if (tipo === 'transferencia') {
+      if(tipo==='deposito'){
+        cuenta.realizarDeposito(monto);
+        syncUsuarioActivoToStorage();
+        document.getElementById('resultado ').innerText= '✅✅ Depósito exitoso'
+      }
+      else if  (tipo === 'transferencia') {
         const destino = document.getElementById('destino').value.trim();
         if (!destino) {
           document.getElementById('resultado').innerText = 'Ingrese la cuenta destino.';
